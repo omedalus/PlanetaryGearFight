@@ -13,6 +13,6 @@ The Moon gear can also have a shield on it. At whichever point the Moon gear's s
 
 Each Planet gear has a sword and shield icon on it as well. Wherever the sword icon makes contact with the Ring gear, the corresponding house gets owned by the player (unless it's shielded by the enemy). Wherever the shield icon makes contact with the ring, a shield is placed on that ring corresponding to that ring gear; the enemy cannot claim that house until the same planet gear places its shield into another house.
 
-An attack will always claim a house even if that house was already claimed 
+The Moon gear has a Seize icon. When this icon contacts the Ring gear, whichever gear is currently in Drive mode gets stuck in Fixed mode for some period. NOTE: This period can't be one revolution of the Moon, because then that would mean that some gear is always stuck.
 
 
