@@ -104,7 +104,19 @@ export default class GearAssembly {
     return retval;
   }
 
+  public get directDriveMode() {
+    return this._isInDirectDriveMode;
+  }
+
+  public set directDriveMode(v: boolean) {
+    this._isInDirectDriveMode = v;
+  }
+
   public getGearMode(gear: Gear) {
+    if (this.directDriveMode) {
+      return GearMode.Direct;
+    }
+
     const ixGear = this._getModeIndexOfGear(gear);
     if (ixGear === null) {
       return null;
@@ -148,7 +160,7 @@ export default class GearAssembly {
     // At this point, we know that the gear is one of the three valid gears (or null).
     // If we set it to direct drive, then all gears get set to direct drive.
     if (mode == GearMode.Direct) {
-      this._isInDirectDriveMode = true;
+      this.directDriveMode = true;
       return true;
     }
 
@@ -169,7 +181,7 @@ export default class GearAssembly {
 
     this._modesSunPlanetRing[ixGearToSet] = mode;
     this._modesSunPlanetRing[ixGearThatPreviouslyHadThisMode] = modeBeingReplaced;
-    this._isInDirectDriveMode = false;
+    this.directDriveMode = false;
     return true;
   }
 }
