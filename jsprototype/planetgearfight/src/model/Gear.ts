@@ -4,7 +4,7 @@
 // Gear ratio equation:
 // https://woodgears.ca/gear/planetary.html
 
-import GearAssembly from './GearAssemblyt';
+import GearAssembly from './GearAssembly';
 import GearMode from './GearMode';
 
 export default class Gear {

@@ -60,13 +60,10 @@ export default class GearAssembly {
     ringToothCount: number | null = null
   ) {
     // All provided parameters need to be integers.
-    if (sunToothCount !== null && sunToothCount !== Math.floor(sunToothCount)) {
-      return false;
-    }
-    if (planetToothCount !== null && planetToothCount !== Math.floor(planetToothCount)) {
-      return false;
-    }
-    if (ringToothCount !== null && ringToothCount !== Math.floor(ringToothCount)) {
+    const numFractions = [sunToothCount, planetToothCount, ringToothCount].filter(
+      (x) => x !== null && x !== Math.floor(x)
+    ).length;
+    if (numFractions > 0) {
       return false;
     }
 
