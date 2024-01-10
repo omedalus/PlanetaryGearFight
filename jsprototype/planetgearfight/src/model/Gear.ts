@@ -5,14 +5,12 @@
 // https://woodgears.ca/gear/planetary.html
 
 import GearAssembly from './GearAssembly';
-import GearMode from './GearMode';
+import type GearMode from './GearMode';
 
 export default class Gear {
   public assembly: GearAssembly;
 
   public name: string;
-
-  public mode: GearMode | null = null;
 
   // This gear might be a planet on a carrier.
   public carrier: Gear | null = null;
@@ -44,5 +42,23 @@ export default class Gear {
 
   set radius(value: number | null) {
     this.circumference = value === null ? null : 2.0 * Math.PI * value;
+  }
+
+  get mode() {
+    if (this.assembly === null) {
+      return null;
+    }
+    const retval = this.assembly.getGearMode(this);
+    return retval;
+  }
+
+  set mode(mode: GearMode | null) {
+    if (this.assembly === null) {
+      return;
+    }
+    if (mode === null) {
+      return;
+    }
+    this.assembly.setGearMode(this, mode);
   }
 }

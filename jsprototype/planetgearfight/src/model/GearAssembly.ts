@@ -5,8 +5,10 @@ export default class GearAssembly {
   public sun: Gear;
   public planetCarrier: Gear;
   public ring: Gear;
-
   public moonCarrier: Gear;
+
+  private _modesSunPlanetRing = [GearMode.Fixed, GearMode.Follow, GearMode.Drive];
+  private _isInDirectDriveMode = false;
 
   public constructor(numPlanets: number, numMoons: number) {
     if (numPlanets < 0 || numPlanets !== Math.floor(numPlanets)) {
@@ -38,10 +40,6 @@ export default class GearAssembly {
       moon.carrierPosition = iMoon / numMoons;
       this.moonCarrier.children.push(moon);
     }
-
-    this.sun.mode = GearMode.Fixed;
-    this.planetCarrier.mode = GearMode.Follow;
-    this.ring.mode = GearMode.Drive;
   }
 
   /**
@@ -104,5 +102,74 @@ export default class GearAssembly {
     }
 
     return retval;
+  }
+
+  public getGearMode(gear: Gear) {
+    const ixGear = this._getModeIndexOfGear(gear);
+    if (ixGear === null) {
+      return null;
+    }
+    return this._modesSunPlanetRing[ixGear];
+  }
+
+  private _getModeIndexOfGear(gear: Gear) {
+    const a = [this.sun, this.planetCarrier, this.ring];
+    const retval = a.indexOf(gear);
+    if (retval === -1) {
+      return null;
+    }
+    return retval;
+  }
+
+  private _getModeIndexOfGearInMode(mode: GearMode) {
+    const retval = this._modesSunPlanetRing.indexOf(mode);
+    if (retval === -1) {
+      return null;
+    }
+    return retval;
+  }
+
+  public getGearInMode(mode: GearMode) {
+    const ixGearInMode = this._getModeIndexOfGearInMode(mode);
+    if (ixGearInMode === null) {
+      return null;
+    }
+    const retval = [this.sun, this.planetCarrier, this.ring][ixGearInMode];
+    return retval;
+  }
+
+  public setGearMode(gear: Gear | null, mode: GearMode) {
+    // The gear needs to be one of the settable parts of the assembly
+    // (or null, if we're setting Direct.)
+    if (gear !== null && gear !== this.sun && gear !== this.planetCarrier && gear !== this.ring) {
+      return false;
+    }
+
+    // At this point, we know that the gear is one of the three valid gears (or null).
+    // If we set it to direct drive, then all gears get set to direct drive.
+    if (mode == GearMode.Direct) {
+      this._isInDirectDriveMode = true;
+      return true;
+    }
+
+    // At this point, if it's not being set to direct drive, then we need to have specified some gear.
+    if (gear === null) {
+      return false;
+    }
+
+    const ixGearToSet = this._getModeIndexOfGear(gear);
+    if (ixGearToSet === null) {
+      return false;
+    }
+    const modeBeingReplaced = this._modesSunPlanetRing[ixGearToSet];
+    const ixGearThatPreviouslyHadThisMode = this._getModeIndexOfGearInMode(mode);
+    if (ixGearThatPreviouslyHadThisMode === null) {
+      return false;
+    }
+
+    this._modesSunPlanetRing[ixGearToSet] = mode;
+    this._modesSunPlanetRing[ixGearThatPreviouslyHadThisMode] = modeBeingReplaced;
+    this._isInDirectDriveMode = false;
+    return true;
   }
 }
