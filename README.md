@@ -16,3 +16,29 @@ Each Planet gear has a sword and shield icon on it as well. Wherever the sword i
 The Moon gear has a Seize icon. When this icon contacts the Ring gear, whichever gear is currently in Drive mode gets stuck in Fixed mode for some period. NOTE: This period can't be one revolution of the Moon, because then that would mean that some gear is always stuck.
 
 
+## Example speeds:
+Calculated with https://www.thecatalystis.com/gears/
+At Sun-Planet-Ring 12-9-30...
+| Drive            | Fixed            | Follower           | Sun Speed     | Planet Carrier Speed   | Ring Speed      |
+|------------------|------------------|--------------------|--------------:|-----------------------:|----------------:|
+| Sun              | Planet Carrier   | Ring               |  1.000        |  0.000                 | -0.400          |
+| Sun              | Ring             | Planet Carrier     |  1.000        |  0.286                 |  0.000          |
+| Planet Carrier   | Sun              | Ring               |  0.000        |  1.000                 |  1.400          |
+| Planet Carrier   | Ring             | Sun                |  3.500        |  1.000                 |  0.000          |
+| Ring             | Sun              | Planet Carrier     |  0.000        |  0.714                 |  1.000          |
+| Ring             | Planet Carrier   | Sun                | -2.500        |  0.000                 |  1.000          |
+
+
+
+
+
+
+
+
+
+
+
+
+// 
+// Drive    Fixed    Follower   Speed Ratios
+// Sun 
