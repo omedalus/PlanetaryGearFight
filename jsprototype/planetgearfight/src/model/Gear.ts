@@ -41,4 +41,8 @@ export default class Gear {
     const r = this.circumference / (2.0 * Math.PI);
     return r;
   }
+
+  set radius(value: number | null) {
+    this.circumference = value === null ? null : 2.0 * Math.PI * value;
+  }
 }
